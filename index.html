@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DMCA Certificate DEEPDEYIITK.COM</title>
+<title>Thanks For Choosing Us!</title>
 <style>
-  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f0f0f0; }
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f5f5f5; }
   .container { position: relative; }
   img { max-width: 100%; height: auto; display: block; }
   .link-overlay {
@@ -13,9 +13,7 @@
     border: 2px solid rgba(0,0,255,0.5);
     background: rgba(0,0,255,0.1);
     cursor: pointer;
-    transition: all 0.2s;
   }
-  .link-overlay:hover { background: rgba(0,0,255,0.3); }
 </style>
 </head>
 <body>
@@ -23,48 +21,6 @@
 <div class="container">
   <img id="cert" src="certificate.jpg" alt="Certificate">
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.1.1/dist/tesseract.min.js"></script>
-<script>
-const img = document.getElementById('cert');
-const container = document.querySelector('.container');
-
-// Original image size
-const originalWidth = 4384;
-const originalHeight = 3280;
-
-// OCR scale down size
-const ocrWidth = 1024;
-const ocrHeight = Math.round(ocrWidth * originalHeight / originalWidth);
-
-const scaleX = originalWidth / ocrWidth;
-const scaleY = originalHeight / ocrHeight;
-
-// OCR processing
-Tesseract.recognize(img.src, 'eng', { logger: m => console.log(m) })
-.then(({ data: { words } }) => {
-    const urlRegex = /(https?:\/\/[^\s]+)|(www\.[^\s]+)/i;
-
-    words.forEach(word => {
-        const text = word.text.trim();
-        const match = text.match(urlRegex);
-        if(match){
-            const a = document.createElement('a');
-            a.href = match[0].startsWith('http') ? match[0] : 'https://' + match[0];
-            a.target = "_blank";
-            a.className = "link-overlay";
-
-            // Scale coordinates to original image
-            a.style.top = word.bbox.y0 * scaleY + "px";
-            a.style.left = word.bbox.x0 * scaleX + "px";
-            a.style.width = (word.bbox.x1 - word.bbox.x0) * scaleX + "px";
-            a.style.height = (word.bbox.y1 - word.bbox.y0) * scaleY + "px";
-
-            container.appendChild(a);
-        }
-    });
-});
-</script>
-
+  
 </body>
 </html>
